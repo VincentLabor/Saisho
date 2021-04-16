@@ -1,5 +1,6 @@
 import React from "react";
-import UseReducerComponent from "../layout/aniReducerTypescript";
+import UseReducerComponent from "./aniReducerTypescript";
+
 
 const LandingPage = () => {
   return (

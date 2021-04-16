@@ -4,4 +4,11 @@
   margin: 0;
   list-style-type: none;
   font-family: "Nunito", sans-serif;
+  
+  color: white;
+}
+
+.main{
+  background-color: black;
+  height: 100vh;
 }

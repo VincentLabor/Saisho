@@ -1,6 +1,6 @@
 import React from "react";
-// import Navbar from "../Layout/Navbar";
-import LandingPage from "../layout/LandingPage";
+ import Navbar from "../layout/Navbar";
+import LandingPage from "../layout/homeLayout/LandingPage";
 
 
 const Home = () => {
@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <div className="homePage">
 
-        {/* <Navbar /> */}
+         <Navbar /> 
         <LandingPage/>
 
       </div>
