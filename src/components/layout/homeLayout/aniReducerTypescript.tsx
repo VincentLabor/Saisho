@@ -27,13 +27,17 @@ function retrieveReducer(state: typeof initialState, action: ACTIONTYPES) {
   }
 }
 
+let searchAnime = (e: string)=>{
+  //write a function that accesses the api.
+}
+
 function useReducerComponent() {
   const [state, dispatch] = useReducer(retrieveReducer, initialState);
 
   return (
     <div>
       <p>What anime is it?</p>
-      <input type="Search for an anime" />
+      {/* <input type="Search for an anime" onChange=(e: React.ChangeEvent<HTMLInputElement>)=>{}/> */}
       <button
         onClick={() => {
           dispatch({ type: "grabAnime", payload: "Naruto" });
