@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,15 +21,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src",
-    "client/src/setupTests.js",
-    "client/src/reportWebVitals.js",
-    "client/src/react-app-env.d.ts",
-    "client/src/index.js",
-    "client/src/custom.d.ts",
-    "client/src/App.tsx",
-    "client/src/components/layout/Navbar.tsx",
-    "client/src/components/layout/homeLayout/aniReducerTypescript.tsx",
-    "client/src/components/pages/Home.tsx"
+    "src"
   ]
 }
