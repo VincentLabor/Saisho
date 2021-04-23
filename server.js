@@ -6,11 +6,14 @@ const cors = require('cors');
 
 
 app.use(cors());
+app.use(express.json());
 
 
 app.get("/", async(req,res)=>{
   const response = await fetch("https://api.jikan.moe/v3/anime/1")
   res.json(await response.json());
+  const name = req.body.name;
+  console.log(name);
 console.log(response.json);
 })
 

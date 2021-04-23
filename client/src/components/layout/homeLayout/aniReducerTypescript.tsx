@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState, useEffect } from "react";
 import axios from "axios";
 
 const initialState = {
@@ -8,8 +8,8 @@ const initialState = {
 
 type ACTIONTYPES =
   | { type: "grabAnime"; payload: any }
-  | { type: "grabManga"; payload: string }
-  | { type: "clear"; payload: null };
+  | { type: "grabManga"; payload: any }
+  | { type: "clear"; payload: any };
 
 function retrieveReducer(state: typeof initialState, action: ACTIONTYPES) {
   switch (action.type) {
@@ -17,12 +17,17 @@ function retrieveReducer(state: typeof initialState, action: ACTIONTYPES) {
       return {
         ...state,
         anime: action.payload,
-        
       };
     case "grabManga":
       return {
         ...state,
         manga: action.payload,
+      };
+    case "clear":
+      return {
+        ...state,
+        anime: "",
+        manga: "",
       };
     default:
       throw new Error("Bad Action");
@@ -37,7 +42,9 @@ const searchAnime = async (e: React.FormEvent<HTMLInputElement>) => {
   };
 
   try {
-    const res = await axios.get("http://localhost:5000/", config);
+    const res = await axios.post("http://localhost:5000/", {
+      aniNumber: {}
+    });
     console.log(res.data);
   } catch (err) {
     console.log(err);
@@ -45,37 +52,34 @@ const searchAnime = async (e: React.FormEvent<HTMLInputElement>) => {
 };
 
 function useReducerComponent() {
+  //<This is the type>
+  //Parenthesees afterwards is the current value state will be initialized at.
+  const [anime, setAnime] = useState<any>("");
   const [state, dispatch] = useReducer(retrieveReducer, initialState);
 
   return (
     <div>
       <p>What anime is it?</p>
-      {/* <input type="Search for an anime" onChange=(e: React.ChangeEvent<HTMLInputElement>)=>{}/> */}
+      
       <form>
         <input
+        className="animInput"
           type="text"
           placeholder="Search for an Anime"
-          onChange={(e: React.FormEvent<HTMLInputElement>) => {
-            // searchAnime(e);
-            // dispatch({type:"grabAnime", payload: e})
-            // console.log(state.anime)
-          }}
-          value={state.anime}
+          onChange={(e) => setAnime(e.target.value)}
+          value={anime}
         />
         <button
           type="submit"
-          // onClick={(e) => {
-          //   e.preventDefault();
-          //   findAnime();
-          //a function that encompasses the grab anime dispatch
-          // dispatch({ type: "grabAnime", payload: "Naruto" });
-          // }}
+          onClick={(e) => {
+            e.preventDefault();
+       dispatch({type: "grabAnime", payload: searchAnime(anime)})     ;
+          }}
         >
           Click me!
         </button>
       </form>
-
-      <p></p>
+      <p>{}</p>
     </div>
   );
 }
