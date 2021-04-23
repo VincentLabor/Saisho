@@ -26,7 +26,7 @@ function retrieveReducer(state: typeof initialState, action: ACTIONTYPES) {
     case "clear":
       return {
         ...state,
-        anime: "",
+        anime: " ",
         manga: "",
       };
     default:
@@ -42,8 +42,10 @@ const searchAnime = async (e: React.FormEvent<HTMLInputElement>) => {
   };
 
   try {
-    const res = await axios.post("http://localhost:5000/", {
-      aniNumber: {}
+    const res = await axios.get(`http://localhost:5000/`, {
+      params: {
+        id: `${e}`,
+      },
     });
     console.log(res.data);
   } catch (err) {
@@ -60,26 +62,26 @@ function useReducerComponent() {
   return (
     <div>
       <p>What anime is it?</p>
-      
+
       <form>
         <input
-        className="animInput"
+          className="animInput"
           type="text"
           placeholder="Search for an Anime"
-          onChange={(e) => setAnime(e.target.value)}
+           onChange={(e) => setAnime(e.target.value)} 
           value={anime}
         />
         <button
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-       dispatch({type: "grabAnime", payload: searchAnime(anime)})     ;
+            searchAnime(anime);
           }}
         >
           Click me!
         </button>
       </form>
-      <p>{}</p>
+      <p>{initialState.anime}</p>
     </div>
   );
 }

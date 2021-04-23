@@ -1,22 +1,21 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const fetch = require('node-fetch');
-const cors = require('cors');
-
-
+const fetch = require("node-fetch");
+const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
 
-
-app.get("/", async(req,res)=>{
-  const response = await fetch("https://api.jikan.moe/v3/anime/1")
+app.get("/", async (req, res) => {
+  const response = await fetch(
+    `https://api.jikan.moe/v3/anime/${req.query.id}`
+  );
   res.json(await response.json());
   const name = req.body.name;
   console.log(name);
-console.log(response.json);
-})
+  console.log(response.json);
+});
 
-  app.listen(5000, () => {
-    console.log(`listening on port 5000`)
-  });
+app.listen(5000, () => {
+  console.log(`listening on port 5000`);
+});
