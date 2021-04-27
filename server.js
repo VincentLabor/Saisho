@@ -7,13 +7,16 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", async (req, res) => {
-  const response = await fetch(
-    `https://api.jikan.moe/v3/anime/${req.query.id}`
-  );
+//Req query receives the params from the front end. 
+
+   const response = await fetch(`https://api.jikan.moe/v3/search/anime?q=${req.query.id}&page=1`);
+
+
   res.json(await response.json());
   const name = req.body.name;
   console.log(name);
-  console.log(response.json);
+
+  console.log(req.body.query);
 });
 
 app.listen(5000, () => {
