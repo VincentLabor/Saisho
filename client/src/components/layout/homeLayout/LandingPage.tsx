@@ -6,7 +6,7 @@ const LandingPage = () => {
   return (
     <>
       <div className="landing">
-        <h2>Search and find your favorite anime/manga</h2>
+        <h3 className="centerText">Search and find your favorite anime/manga</h3>
         <UseReducerComponent/>
         {/* Carousel for Anime */}
       </div>

@@ -4,8 +4,21 @@
   margin: 0;
   list-style-type: none;
   font-family: "Nunito", sans-serif;
-  
   color: white;
+}
+
+html{
+  height: 100%;
+}
+
+body{
+  /* This will dictate the entire page width */
+  width: 95%;
+  background: black;
+}
+
+.centerText{
+  text-align: center;
 }
 
 .main{
@@ -19,4 +32,36 @@
 
 .homePage{
   padding: 1em;
+  height: 100vh;
+
+}
+
+/* This is found in the search typewscript */
+.animeSearch{
+  width: 10%;
+}
+
+.animeItem{
+  width: 40%;
+  display: flex;
+  padding-top: 2em;
+
+}
+
+.animeItems{
+  padding-left: .5em;
+  padding-right: .5em;
+}
+
+.animeImageResults{
+  width: 6em;
+  height: 9em;
+}
+
+.searchResult{
+width: 40%;
+}
+
+.smallerText{
+  font-size: 8px;
 }
