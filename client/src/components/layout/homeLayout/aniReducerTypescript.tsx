@@ -1,18 +1,19 @@
 import React, { useReducer, useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 
 const initialState = {
   anime: "",
-  animeImage: "",
+  animeId: "",
+  animeURL: "",
   manga: "",
 };
 
 type ACTIONTYPES =
   | { type: "grabAnime"; payload: any }
-  | { type: "grabPageOfAnime"; payload: any }
-  | { type: "grabAnimeImage"; payload: any }
+  | { type: "grabAnimeId"; payload: any }
+  | { type: "grabAnimeURL"; payload: any }
   | { type: "grabManga"; payload: any }
-  | { type: "grabMangaImage"; payload: any }
   | { type: "clear"; payload: any };
 
 function retrieveReducer(state: typeof initialState, action: ACTIONTYPES) {
@@ -22,12 +23,15 @@ function retrieveReducer(state: typeof initialState, action: ACTIONTYPES) {
         ...state,
         anime: action.payload,
       };
-    case "grabAnimeImage":
+    case "grabAnimeId":
       return {
         ...state,
-        animeImage: action.payload.slice(0, 5).map((item: any) => {
-          return item.image_url;
-        }),
+        animeId: action.payload,
+      };
+    case "grabAnimeURL":
+      return {
+        ...state,
+        animeURL: action.payload,
       };
     case "grabManga":
       return {
@@ -37,7 +41,7 @@ function retrieveReducer(state: typeof initialState, action: ACTIONTYPES) {
     case "clear":
       return {
         ...state,
-        anime: " ",
+        anime: "",
         manga: "",
       };
     default:
@@ -53,7 +57,7 @@ function useReducerComponent() {
   const [state, dispatch] = useReducer(retrieveReducer, initialState);
 
   const regexer = (text: any) => {
-    return text.replace(/ /g, "%20");
+    return text.replace(/ /g, "_");
   };
 
   //This function accesses the server with user inputted params.
@@ -67,7 +71,7 @@ function useReducerComponent() {
           id: e,
         },
       });
-      console.log(res.data.results);
+      //The proper id should be getting passed.
       //This sends this to the global state to be used.
       //Also putting data here errors out so put data in the global state.
       dispatch({ type: "grabAnime", payload: res.data.results });
@@ -77,12 +81,26 @@ function useReducerComponent() {
     }
   };
 
-  // const renderTitleResults =(results: any)=>{
-  //   const resonses = results;
-  //   return resonses.slice(0, 5).map((item: any)=>{
-  //     return item.title;
-  //   })
-  // }
+  const getSpecificAnime = async (retAnimeId: any) => {
+    console.log(retAnimeId.mal_id);
+    //Here create or dispatch a method that searches sepcifically for the animes with id.
+    try {
+      const res = await axios.get(`http://localhost:5000/anime`, {
+        params: {
+          id: retAnimeId.mal_id,
+        },
+      });
+
+      dispatch({ type: "grabAnimeId", payload: res.data });
+      dispatch({ type: "clear", payload: "" });
+      console.log(res.data);
+    } catch (error) {}
+    return " ";
+  };
+
+  function Neon_Genesis_Evangelion(hello: any) {
+    return <h1>You made it</h1>;
+  }
 
   return (
     <div>
@@ -107,57 +125,84 @@ function useReducerComponent() {
         </button>
       </form>
       <div className="searchResult">
-        {/* <img
-            src={`${state.animeImage}`}
-            alt=""
-            
-          /> */}
-        <div className="animeItem">
+        <div className={state.animeId ? "displayNone" : "animeItem"}>
           {/* animeItem causes the item below to become flex */}
           {state.anime
             ? state.anime.slice(0, 3).map((item: any) => {
                 return (
                   <>
-                  {/* Having a Div here causes all items not to be flex */}
-                    <div className="animeItems">
-                      <img
-                        key={item.image_url}
-                        src={item.image_url}
-                        alt=" "
-                        className="animeImageResults"
-                      />
-                      <p className="smallerText" key={item.title}>
-                        {item.title}
-                      </p>
-                    </div>
+                    <Router>
+                      <Link to={`/${regexer(item.title)}`}>
+                        {/* <Link to={`/${item.title}`}></Link> */}
+                        {/* Link works, need to regex the spaces to become underscores */}
+
+                        {/* Having a Div here causes all items not to be flex */}
+                        <div
+                          className="animeItems"
+                          onClick={() => {
+                            getSpecificAnime(item);
+                          }}
+                        >
+                          <img
+                            key={item.image_url}
+                            src={item.image_url}
+                            alt=" "
+                            className="animeImageResults"
+                          />
+                          <p className="smallerText" key={item.title}>
+                            {item.title}
+                          </p>
+                        </div>
+                      </Link>
+                    </Router>
                   </>
                 );
               })
             : null}
         </div>
-        <div className="animeItem">
+        <div className={state.animeId ? "displayNone" : "animeItem"}>
           {/* animeItem causes the item below to become flex */}
           {state.anime
             ? state.anime.slice(3, 6).map((item: any) => {
                 return (
                   <>
-                  {/* Having a Div here causes all items not to be flex */}
-                    <div className="animeItems">
-                      <img
-                        key={item.image_url}
-                        src={item.image_url}
-                        alt=" "
-                        className="animeImageResults"
-                      />
-                      <p className="smallerText" key={item.title}>
-                        {item.title}
-                      </p>
-                    </div>
+                    <Router>
+                      <Link to={`/${regexer(item.title)}`}>
+                        <div
+                          className="animeItems"
+                          onClick={() => {
+                            getSpecificAnime(item);
+                          }}
+                        >
+                          <img
+                            key={item.image_url}
+                            src={item.image_url}
+                            alt=" "
+                            className="animeImageResults"
+                          />
+                          <p className="smallerText" key={item.title}>
+                            {item.title}
+                          </p>
+                        </div>
+                      </Link>
+                    </Router>
                   </>
                 );
               })
             : null}
         </div>
+
+        {/* This will display the anime that the user clicks on based on the search page */}
+        {state.animeId ? (
+          <div className="userSearchedResult">
+            <img
+              src={state.animeId.image_url}
+              alt=""
+              className="displayAnime"
+            />
+            <p>{state.animeId.title}</p>
+          </div>
+        ) : null}
       </div>
     </div>
   );
