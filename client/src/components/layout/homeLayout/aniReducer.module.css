@@ -1,0 +1,39 @@
+/* Specific User clicked Anime */
+
+.userSearchedResult {
+    width: 100%;
+  }
+
+.displayAnime {
+  /* height: 13em; */
+  width: 45%;
+}
+
+.jpnNameFontSize {
+  font-size: 10px;
+}
+
+/* This is found in the search typewscript */
+.animeItem {
+  width: 40%;
+  display: flex;
+  padding-top: 2em;
+}
+
+.animeItems {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.animeImageResults{
+    width: 6em;
+    height: 9em;
+  }
+
+.yellowText{
+  color: #FF9F00;
+}
+
+.silvertext{
+  color: #81808C;
+}

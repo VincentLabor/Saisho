@@ -5,7 +5,7 @@ import LandingPage from "../layout/homeLayout/LandingPage";
 const Home = () => {
   return (
     <>
-      <div className="homePage">
+      <div className="homePage width100">
         <Navbar />
         <LandingPage />
       </div>

@@ -18,11 +18,14 @@ app.get("/", async (req, res) => {
   console.log(req.body.query);
 });
 
+
+
 app.use("/anime/", async (req, res, next) => {
   const response = await fetch(
     `https://api.jikan.moe/v3/anime/${req.query.id}`
   );
   res.json(await response.json());
+  console.log("Hello");
   next();
 });
 

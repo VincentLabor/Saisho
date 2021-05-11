@@ -5,6 +5,7 @@
   list-style-type: none;
   font-family: "Nunito", sans-serif;
   color: white;
+  line-height: 1.5;
 }
 
 html{
@@ -17,12 +18,36 @@ html{
 
 body{
   /* This will dictate the entire page width */
-  width: 95%;
+  width: 100%;
   background: black;
+}
+
+.width100{
+  width: 100%;
 }
 
 .centerText{
   text-align: center;
+}
+
+.centerFlex{
+  display: flex;
+}
+
+.centerFlexAlignCenter{
+  display: flex;
+  align-items: center;
+}
+
+.centerFlexSpaceEvenly{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.centerFlexSpaceBetween{
+  display: flex;
+ 
+  justify-content: space-between;
 }
 
 .main{
@@ -40,42 +65,19 @@ body{
 
 }
 
-/* This is found in the search typewscript */
-.animeSearch{
- 
-}
-
-.animeItem{
-  width: 40%;
-  display: flex;
-  padding-top: 2em;
-
-}
-
-.animeItems{
+.halfSidePadding{
   padding-left: .5em;
   padding-right: .5em;
 }
 
-.animeImageResults{
-  width: 6em;
-  height: 9em;
+.left1padding{
+  padding-left: 1em;
 }
-
-/* .searchResult{
-width: 40%;
-} */
 
 .smallerText{
   font-size: 8px;
 }
 
-.userSearchedResult{
-  width: 100%;
-}
-
-/* Specific User clicked Anime */
-.displayAnime{
-  height: 13em;
-  width: 11em;
+.removeUnderline{
+  text-decoration: none;
 }
